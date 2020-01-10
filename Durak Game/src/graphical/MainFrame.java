@@ -23,14 +23,15 @@ public class MainFrame extends JFrame {
 	final int WIDTH = 1920;
 	final int HEIGHT = 1080;
 	Color backgroundColor = new Color(39, 119, 20);
-	Color buttonColor = new Color(204, 204, 0);
+	Color buttonColor = new Color(255, 255, 255);
 	Color grid = new Color(39, 119, 20);
-	static Font buttonFont = new Font("Serif Bold", Font.PLAIN, 50);
+	static Font buttonFont = new Font("Comic Sans MS", Font.PLAIN, 35);
 	JFrame main = new JFrame();
 	JButton bShuffle = new JButton();
 	JButton bOver = new JButton();
 	JButton bExit = new JButton();
-
+	Board board;
+	Image img = Toolkit.getDefaultToolkit().createImage("baccround.jpg");
 	// card grid
 	int gridX = 50;
 	int gridY = 50;
@@ -43,17 +44,30 @@ public class MainFrame extends JFrame {
 	int cardH = gridH;
 	int cardActualWidth = cardW - 2 * cardSpace;
 	int cardActualHeight = cardH - 2 * cardSpace;
+	
 
 	public MainFrame() {
-
-		Board board = new Board();
+		
+		try {
+			buttonFont = Font.createFont(Font.TRUETYPE_FONT, new File("KREMLIN BOLSHEVIK.ttf")).deriveFont(30f);
+		}
+		catch (Exception e) {
+			
+		}
+		
+		board = new Board();
 		game.playerHand.printArray();
+		game.computerHand.printArray();
 
+		
+		
 		this.setSize(WIDTH, HEIGHT);
 		this.setTitle("DURAK");
 		this.setVisible(true);
-		this.setResizable(false);
+		this.setBackground(Color.RED);
+		this.setResizable(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 
 		board.add(bShuffle);
 		board.add(bOver);
@@ -82,40 +96,36 @@ public class MainFrame extends JFrame {
 		bExit.setText("Exit");
 		bExit.setFont(buttonFont);
 		bExit.addActionListener(aExit);
-
+		
 	}
 
 	public class Board extends JPanel {
 
 		public void paintComponent(Graphics g) {
-			// hand.getCardByIndex(0);
 
-			g.setColor(Color.GREEN);
-			g.fillRect(0, 0, WIDTH, HEIGHT);
-
+			g.drawImage(img, 0, 0, null);
 			// computer hand
 			g.setColor(Color.BLACK);
-			g.drawRect(gridX, gridY, gridW, gridH);
+			//g.drawRect(gridX, gridY, gridW, gridH);
 
 			// Piste
-			g.drawRect(gridX, gridY + gridH + 100, gridW, gridH * 2);
+			//g.drawRect(gridX, gridY + gridH + 100, gridW, gridH * 2);
 
 			// trump
-			g.drawRect(gridX + 1400, gridY, 110, gridH);
+			//g.drawRect(gridX + 1400, gridY, 110, gridH);
+			g.drawImage(game.deck.trump.getImage(), gridX + 1400, gridY, 110, gridH, this);
 
 			// player hand
-			g.drawRect(gridX, 1080 - 268, gridW, gridH);
+			//g.drawRect(gridX, 1080 - 268, gridW, gridH);
 
 			// deck
-			g.drawRect(gridX + 1400, gridY + 700, 110, gridH);
-            
-			for (int i = 0; i < 2; i++) {
-				g.drawImage(game.playerHand.getCardByIndex(1).getImage(), gridX + i * cardW + cardSpace, gridY + cardSpace, cardActualWidth,
-						cardActualHeight, null);
-				//g.fillRect(gridX + i * cardW + cardSpace, gridY + cardSpace, cardActualWidth, cardActualHeight);
-				//g.drawRect(gridX + i * cardW + cardSpace, gridY + cardSpace, cardActualWidth, cardActualHeight);
-				//g.drawRect(gridX + i * cardW + cardSpace, gridY + cardSpace + 762, cardActualWidth, cardActualHeight);
+			//g.drawRect(gridX + 1400, gridY + 700, 110, gridH);
 
+			for (int i = 0; i < 6; i++) {
+				g.drawImage(game.playerHand.getCardByIndex(i).getImage(), gridX + i * cardW + cardSpace,
+						gridY + cardSpace, cardActualWidth, cardActualHeight, this);
+				g.drawImage(game.computerHand.getCardByIndex(i).getImage(), gridY + i * cardW + cardSpace,
+						gridY + cardSpace + 762, cardActualWidth, cardActualHeight, this);
 			}
 
 		}
@@ -126,9 +136,10 @@ public class MainFrame extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-
-			
-
+			game.computerHand.clear();
+			game.playerHand.clear();
+			game.setup();
+			board.repaint();
 		}
 	}
 

@@ -17,7 +17,7 @@ public class Card {
     public Suit suit;
     public Rank rank;
     public boolean visible;
-    public static Image image;
+    public  Image image;
 	public enum Suit {CLUBS, DIAMONDS, HEARTS, SPADES};
 	public enum Rank {SIX(6), SEVEN(7), EIGHT(8), NINE(9), TEN(10), JACK(11), QUEEN(12), KING(13), ACE(14);
 

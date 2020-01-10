@@ -24,9 +24,7 @@ public class DurakMain {
     private boolean quitGame = false;
 	
 	public DurakMain() {
-		 playerHand = new Hand();
-		 computerHand = new Hand();
-		 deck = new Deck();
+		
 		boolean running = true;
 		while(running) {
 			setup();
@@ -37,6 +35,9 @@ public class DurakMain {
 	}
 	
 	public void setup() {
+		playerHand = new Hand();
+		computerHand = new Hand();
+		deck = new Deck();
 		deck.shuffle();
 		System.out.println("Trump is: " + deck.setTrump());
 		deck.reinsertTrump();
