@@ -7,7 +7,7 @@ import logic.Card.Suit;
 
 public class Hand {
 
-	private ArrayList<Card> cards;
+	private  ArrayList<Card> cards;
 	
 	
 	public Hand() {
@@ -18,7 +18,7 @@ public class Hand {
 		cards.add(c);
 	}
 	
-	public void clear() {
+	public  void clear() {
 		cards.clear();
 	}
 	public void removeCard(Card c) {

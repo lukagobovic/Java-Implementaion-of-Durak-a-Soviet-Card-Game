@@ -1,5 +1,6 @@
 package logic;
 
+import java.io.IOException;
 import java.util.*;
 
 import logic.Card.Rank;
@@ -18,7 +19,7 @@ public class Deck  {
 	public Hand hand = new Hand();
 
 	
-	public Deck() {
+	public Deck()  {
 		deckOfCards = new Card[NCARDS];
 		this.playedCards = new ArrayList<Card>(0);
 		int i = 0;
@@ -31,7 +32,7 @@ public class Deck  {
 		
 	}
 
-	public Card[] shuffle() {
+	public  Card[] shuffle() {
 		for ( int i = deckOfCards.length-1; i > 0; i-- ) {
             int rand = (int)(Math.random()*(i+1));
             Card temp = deckOfCards[i];

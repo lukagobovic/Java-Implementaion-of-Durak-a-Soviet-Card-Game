@@ -3,6 +3,7 @@ package main;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 
 import javax.swing.*;
 import graphical.*;
@@ -14,15 +15,18 @@ import logic.*;
 
 public class DurakMain {
 
-	public static Hand playerHand = new Hand();
-	public static Hand computerHand = new Hand();
-	public static Deck deck = new Deck();
+	public Hand playerHand;
+	public Hand computerHand;
+	public  Deck deck;
 	private boolean playersTurn = true;
     private boolean playerHasDefended = false;
     private boolean endGame = false;
     private boolean quitGame = false;
 	
 	public DurakMain() {
+		 playerHand = new Hand();
+		 computerHand = new Hand();
+		 deck = new Deck();
 		boolean running = true;
 		while(running) {
 			setup();
@@ -40,11 +44,12 @@ public class DurakMain {
 			playerHand.add(deck.deal());
 			computerHand.add(deck.deal());
 		}
+		
 	}
 	public void initFrame() {
 		
-		
 	}
+	
 	
 	public void mainGame() {
 		
@@ -79,7 +84,7 @@ public class DurakMain {
 	        }
 	        return false;
 	    }
-	
+//	
 //	 public Card playerSelectedCardToHit() {	
 //	        if (deck.size() == 0) {
 //	            playerHand.remove(clickedCard);
