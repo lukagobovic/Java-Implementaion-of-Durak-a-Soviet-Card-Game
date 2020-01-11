@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 
@@ -17,7 +18,7 @@ public class Card {
     public Suit suit;
     public Rank rank;
     public boolean visible;
-    public  Image image;
+    public  ImageIcon image;
 	public enum Suit {CLUBS, DIAMONDS, HEARTS, SPADES};
 	public enum Rank {SIX(6), SEVEN(7), EIGHT(8), NINE(9), TEN(10), JACK(11), QUEEN(12), KING(13), ACE(14);
 
@@ -52,13 +53,13 @@ public class Card {
         }
     	String imageFileName = "" + ranks + "CDHS".charAt(suits-1)  +".png";
 		imageFileName = "cardPictures\\" + imageFileName;		
-		try {
-			image = ImageIO.read(new File(imageFileName));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+//		try {
+//			image = ImageIO.read(new File(imageFileName));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		image = new ImageIcon(imageFileName);
 	}
 	
 	public Card(Suit suit, Rank rank) {
@@ -72,7 +73,7 @@ public class Card {
 	    return (rank + " of " + suit);
 	}
 	
-	public Image getImage() {
+	public ImageIcon getImage() {
 		return image;
 	}
 	

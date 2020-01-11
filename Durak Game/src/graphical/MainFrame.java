@@ -44,6 +44,7 @@ public class MainFrame extends JFrame {
 	int cardH = gridH;
 	int cardActualWidth = cardW - 2 * cardSpace;
 	int cardActualHeight = cardH - 2 * cardSpace;
+	JLabel trump = new JLabel();
 	
 
 	public MainFrame() {
@@ -113,20 +114,22 @@ public class MainFrame extends JFrame {
 
 			// trump
 			//g.drawRect(gridX + 1400, gridY, 110, gridH);
-			g.drawImage(game.deck.trump.getImage(), gridX + 1400, gridY, 110, gridH, this);
-
+		//	g.drawImage(game.deck.trump.getImage(), gridX + 1400, gridY, 110, gridH, this);
+            trump.setBounds(gridX + 1400, gridY, cardActualWidth, gridH);
+            trump.setIcon(game.deck.trump.getImage());
+            board.add(trump);
 			// player hand
 			//g.drawRect(gridX, 1080 - 268, gridW, gridH);
 
 			// deck
 			//g.drawRect(gridX + 1400, gridY + 700, 110, gridH);
 
-			for (int i = 0; i < 6; i++) {
-				g.drawImage(game.playerHand.getCardByIndex(i).getImage(), gridX + i * cardW + cardSpace,
-						gridY + cardSpace, cardActualWidth, cardActualHeight, this);
-				g.drawImage(game.computerHand.getCardByIndex(i).getImage(), gridY + i * cardW + cardSpace,
-						gridY + cardSpace + 762, cardActualWidth, cardActualHeight, this);
-			}
+//			for (int i = 0; i < 6; i++) {
+//				g.drawImage(game.playerHand.getCardByIndex(i).getImage(), gridX + i * cardW + cardSpace,
+//						gridY + cardSpace, cardActualWidth, cardActualHeight, this);
+//				g.drawImage(game.computerHand.getCardByIndex(i).getImage(), gridY + i * cardW + cardSpace,
+//						gridY + cardSpace + 762, cardActualWidth, cardActualHeight, this);
+//			}
 
 		}
 	}
