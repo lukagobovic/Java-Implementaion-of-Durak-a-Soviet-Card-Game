@@ -11,6 +11,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import javafx.scene.layout.Border;
 import logic.*;
 import main.*;
 
@@ -30,8 +31,13 @@ public class MainFrame extends JFrame {
 	JButton bShuffle = new JButton();
 	JButton bOver = new JButton();
 	JButton bExit = new JButton();
+	ActShuffle aShuffle = new ActShuffle();
+	ActOver aOver = new ActOver();
+	ActExit aExit = new ActExit();
+	
 	Board board;
 	Image img = Toolkit.getDefaultToolkit().createImage("baccround.jpg");
+	ImageIcon cardBack = new ImageIcon("back.png");
 	// card grid
 	int gridX = 50;
 	int gridY = 50;
@@ -42,10 +48,15 @@ public class MainFrame extends JFrame {
 	int cardSpace = 10;
 	int cardW = gridW / 12;
 	int cardH = gridH;
-	int cardActualWidth = cardW - 2 * cardSpace;
-	int cardActualHeight = cardH - 2 * cardSpace;
-	JLabel trump = new JLabel();
+	int cardActualWidth = 110;
+	int cardActualHeight = 148;
 	
+	JButton trump = new JButton();
+	JButton deck = new JButton();
+	
+	ArrayList<JButton> playerCards = new ArrayList<JButton>();
+	ArrayList<JButton> computerCards = new ArrayList<JButton>();
+	javax.swing.border.Border emptyBorder = BorderFactory.createEmptyBorder();
 
 	public MainFrame() {
 		
@@ -60,7 +71,18 @@ public class MainFrame extends JFrame {
 		game.playerHand.printArray();
 		game.computerHand.printArray();
 
-		
+		for(int x = 0; x < 12; x ++) {
+			JButton button = new JButton();
+			button.setContentAreaFilled(false);
+			button.setBorder(emptyBorder);
+			playerCards.add(button);
+		}
+		for(int x = 0; x < 12; x ++) {
+			JButton button = new JButton();
+			button.setContentAreaFilled(false);
+			button.setBorder(emptyBorder);
+			computerCards.add(button);
+		}
 		
 		this.setSize(WIDTH, HEIGHT);
 		this.setTitle("DURAK");
@@ -74,9 +96,7 @@ public class MainFrame extends JFrame {
 		board.add(bOver);
 		board.add(bExit);
 
-		ActShuffle aShuffle = new ActShuffle();
-		ActOver aOver = new ActOver();
-		ActExit aExit = new ActExit();
+		
 
 		this.setContentPane(board);
 		this.setLayout(null);
@@ -105,31 +125,32 @@ public class MainFrame extends JFrame {
 		public void paintComponent(Graphics g) {
 
 			g.drawImage(img, 0, 0, null);
-			// computer hand
-			g.setColor(Color.BLACK);
-			//g.drawRect(gridX, gridY, gridW, gridH);
-
 			// Piste
 			//g.drawRect(gridX, gridY + gridH + 100, gridW, gridH * 2);
-
-			// trump
-			//g.drawRect(gridX + 1400, gridY, 110, gridH);
-		//	g.drawImage(game.deck.trump.getImage(), gridX + 1400, gridY, 110, gridH, this);
             trump.setBounds(gridX + 1400, gridY, cardActualWidth, gridH);
             trump.setIcon(game.deck.trump.getImage());
+            trump.setBorder(emptyBorder);
+            trump.setContentAreaFilled(false);
             board.add(trump);
-			// player hand
-			//g.drawRect(gridX, 1080 - 268, gridW, gridH);
+			//deck
+            deck.setBounds(gridX + 1400, gridY + 762 , 110, gridH);
+            deck.setIcon(cardBack);
+            deck.setBorder(emptyBorder);
+            deck.setContentAreaFilled(false);
+            board.add(deck);
+            
 
-			// deck
-			//g.drawRect(gridX + 1400, gridY + 700, 110, gridH);
-
-//			for (int i = 0; i < 6; i++) {
-//				g.drawImage(game.playerHand.getCardByIndex(i).getImage(), gridX + i * cardW + cardSpace,
-//						gridY + cardSpace, cardActualWidth, cardActualHeight, this);
-//				g.drawImage(game.computerHand.getCardByIndex(i).getImage(), gridY + i * cardW + cardSpace,
-//						gridY + cardSpace + 762, cardActualWidth, cardActualHeight, this);
-//			}
+			for (int i = 0; i < 6; i++) {
+				playerCards.get(i).setBounds(gridX + i * cardW + cardSpace, gridY + 10, cardActualWidth, cardActualHeight);
+				playerCards.get(i).setIcon(game.playerHand.getCardByIndex(i).getImage());
+				//playerCards.get(i).addActionListener();
+				board.add(playerCards.get(i));
+				
+				computerCards.get(i).setBounds(gridX + i * cardW + cardSpace, gridY + 10 + 762, cardActualWidth, cardActualHeight);
+				computerCards.get(i).setIcon(cardBack);
+				board.add(computerCards.get(i));
+				
+			}
 
 		}
 	}
